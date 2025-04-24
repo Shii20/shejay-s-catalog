@@ -1,0 +1,174 @@
+<!--
+Browser Environment Dashboard
+
+This HTML file displays detailed information about the user's browser environment and page details.
+
+Features:
+- Part A: Displays browser name and version, platform, Java enabled status, screen resolution, available screen size, and color depth.
+- Part B: Displays current URL, hostname, and page title with a button to dynamically change the page title.
+- Part C: Navigation controls for reloading, redirecting, and navigating back and forward in browser history.
+- Part D: Dynamically changes the background color of the page based on screen width:
+    - Mobile (<600px): Blue
+    - Tablet (600–991px): Green
+    - Desktop (≥992px): Orange
+
+Author: Shejay B. Barranda
+Subject: C604 - Event Driven Programming
+Instructor: Prof. Arjay Abio
+Academic Year: 2nd Semester, 2024-2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Browser Environment Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Part 0: Profile Information -->
+    <header>
+        <h1>Browser Environment Dashboard</h1>
+        <p><strong>Complete Name:</strong> Shejay B. Barranda</p>
+        <p><strong>Sex:</strong> Male</p>
+        <p><strong>Address:</strong> Manamoc, Lagonoy, Camarines Sur</p>
+        <p><strong>Course, Year, and Section:</strong> BS Information Technology, 2nd Year, Section B</p>
+        <p><strong>Name of School:</strong> Partido State University</p>
+        <p><strong>Semester and Academic Year:</strong> 2nd Semester, 2024-2025</p>
+        <p><strong>Subject Code and Title:</strong> C604 - Event Driven Programming</p>
+        <p><strong>Name of Subject Instructor:</strong>  Prof. Arjay Abio</p>
+    </header>
+
+    <!-- Part A: Browser Information -->
+    <section id="browser-info">
+        <h2>Browser Information</h2>
+        <ul>
+            <li><strong>Browser Name and Version:</strong> <span id="browserName"></span></li>
+            <li><strong>Platform (OS):</strong> <span id="platform"></span></li>
+            <li><strong>Java Enabled:</strong> <span id="javaEnabled"></span></li>
+            <li><strong>Screen Resolution:</strong> <span id="screenResolution"></span></li>
+            <li><strong>Available Screen Size:</strong> <span id="availableScreen"></span></li>
+            <li><strong>Color Depth:</strong> <span id="colorDepth"></span></li>
+        </ul>
+    </section>
+
+    <!-- Part B: Page Information and Controls -->
+    <section id="page-info">
+        <h2>Page Information and Controls</h2>
+        <ul>
+            <li><strong>Current URL:</strong> <span id="currentURL"></span></li>
+            <li><strong>Hostname:</strong> <span id="hostname"></span></li>
+            <li><strong>Page Title:</strong> <span id="pageTitle"></span></li>
+        </ul>
+        <button id="changeTitleBtn">Change Page Title</button>
+    </section>
+
+    <!-- Part C: Navigation Controls -->
+    <section id="navigation-controls">
+        <h2>Navigation Controls</h2>
+        <button id="reloadBtn">Reload Page</button>
+        <button id="redirectBtn">Redirect to URL</button>
+        <button id="backBtn">Back</button>
+        <button id="forwardBtn">Forward</button>
+    </section>
+
+    <script>
+        // Display browser-specific information
+        function displayBrowserInfo() {
+            const userAgent = navigator.userAgent;
+            let browserNameVersion = "Unknown";
+
+            // Detect browser name from userAgent
+            if (userAgent.indexOf("Firefox") > -1) {
+                browserNameVersion = "Mozilla Firefox";
+            } else if (userAgent.indexOf("Chrome") > -1) {
+                browserNameVersion = "Google Chrome";
+            } else if (userAgent.indexOf("Safari") > -1) {
+                browserNameVersion = "Apple Safari";
+            } else if (userAgent.indexOf("Edge") > -1) {
+                browserNameVersion = "Microsoft Edge";
+            } else if (userAgent.indexOf("Trident") > -1) {
+                browserNameVersion = "Internet Explorer";
+            }
+
+            // Extract browser version
+            const versionMatch = userAgent.match(/(firefox|chrome|safari|edge|trident)\/?\s*(\d+)/i);
+            if (versionMatch) {
+                browserNameVersion += " " + versionMatch[2];
+            }
+
+            // Fill in the HTML with browser info
+            document.getElementById("browserName").textContent = browserNameVersion;
+            document.getElementById("platform").textContent = navigator.platform;
+            document.getElementById("javaEnabled").textContent = navigator.javaEnabled() ? "Yes" : "No";
+            document.getElementById("screenResolution").textContent = screen.width + " x " + screen.height;
+            document.getElementById("availableScreen").textContent = screen.availWidth + " x " + screen.availHeight;
+            document.getElementById("colorDepth").textContent = screen.colorDepth + " bits";
+        }
+
+        // Display current page information
+        function displayPageInfo() {
+            document.getElementById("currentURL").textContent = window.location.href;
+            document.getElementById("hostname").textContent = window.location.hostname;
+            document.getElementById("pageTitle").textContent = document.title;
+        }
+
+        // Change the document title dynamically
+        document.getElementById("changeTitleBtn").addEventListener("click", function () {
+            const newTitle = prompt("Enter a new page title:", document.title);
+            if (newTitle !== null && newTitle.trim() !== "") {
+                document.title = newTitle;
+                document.getElementById("pageTitle").textContent = newTitle;
+            }
+        });
+
+        // Navigation controls
+        document.getElementById("reloadBtn").addEventListener("click", function () {
+            location.reload();
+        });
+
+        document.getElementById("redirectBtn").addEventListener("click", function () {
+            const newUrl = prompt("Enter a URL to redirect to:", "https://www.example.com");
+            if (newUrl !== null && newUrl.trim() !== "") {
+                location.href = newUrl;
+            }
+        });
+
+        document.getElementById("backBtn").addEventListener("click", function () {
+            history.forward();
+        });
+
+        document.getElementById("forwardBtn").addEventListener("click", function () {
+            history.forward();
+        });
+
+        // Call display functions on page load
+        window.addEventListener("load", function() {
+            displayBrowserInfo();
+            displayPageInfo();
+            applyDynamicBackgroundColor();
+        });
+
+        // Change background color of the page based on screen width
+        function applyDynamicBackgroundColor() {
+            const width = window.innerWidth;
+            let bgColor = "white";
+
+            if (width < 600) {
+                bgColor = "#0000FF"; // Blue for Mobile (<600px)
+            } else if (width >= 600 && width <= 991) {
+                bgColor = "#008000"; // Green for Tablet (600–991px)
+            } else if (width >= 992) {
+                bgColor = "#FFA500"; // Orange for Desktop (≥992px)
+            }
+
+            document.body.style.backgroundColor = bgColor;
+        }
+
+        // Update background color on window resize
+        window.addEventListener("resize", applyDynamicBackgroundColor);
+    </script>
+</body>
+</html>

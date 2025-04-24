@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Homepage - Shejay B. Barranda</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'UnifrakturCook', Georgia, serif;
+            margin: 0;
+            padding: 30px 30px 50px 30px;
+            background: linear-gradient(135deg, #6a0dad, #b19cd9); /* purple gradient */
+            color: #e6e0f8; /* light purple text */
+            transition: background-color 0.7s ease;
+            background-image: repeating-radial-gradient(circle at center, transparent 0, transparent 10px, rgba(107, 13, 173, 0.05) 10px, rgba(107, 13, 173, 0.05) 20px);
+        }
+        /* Header styles */
+        header {
+            background: #5a0d8a; /* deep purple */
+            color: #e6e0f8;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(90, 13, 138, 0.8);
+            border: 3px solid #3e0860;
+            font-family: 'Georgia', serif;
+        }
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(62, 8, 96, 0.7);
+        }
+        header p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-family: 'Georgia', serif;
+        }
+        /* Navigation styles */
+        nav {
+            background: #3e0860; /* darker purple */
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(62, 8, 96, 0.7);
+            transition: box-shadow 0.3s ease;
+            border: 2px solid #2a0545;
+        }
+        nav:hover {
+            box-shadow: 0 6px 20px rgba(62, 8, 96, 0.9);
+        }
+        nav h2 {
+            margin-top: 0;
+            color: #e6e0f8;
+            font-weight: 700;
+            font-size: 2em;
+            border-bottom: 3px solid #21012b; /* gold accent */
+            padding-bottom: 10px;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+        nav a {
+            display: inline-block;
+            margin-right: 1.5rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: #e6e0f8;
+            font-weight: 700;
+            font-size: 1.2em;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #710097; /* gold button background */
+            border: 2px solid #5a4328;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        nav a:hover,
+        nav a:focus {
+            color: #5a4328;
+            background-color: #e6e0f8;
+            text-decoration: none;
+            outline: none;
+            border-color: #d40adb;
+            box-shadow: 0 0 10px #d40adb;
+        }
+        nav a:focus-visible {
+            outline: 3px solid #d40adb;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Profile</h1>
+        <main class="profile-info" tabindex="-1">
+            <p><strong>Complete Name:</strong> Shejay B. Barranda</p>
+            <p><strong>Sex:</strong> Male</p>
+            <p><strong>Address:</strong> Manamoc, Lagonoy, Camarines Sur</p>
+            <p><strong>Course, Year, and Section:</strong> BS Information Technology, 2nd Year, Section B</p>
+            <p><strong>Name of School:</strong> Partido State University</p>
+            <p><strong>Semester and Academic Year:</strong> 2nd Semester, 2024-2025</p>
+            <p><strong>Course Code and Title:</strong> C604 - Event Driven Programming</p>
+            <p><strong>Name of Subject Instructor:</strong> Prof. Arjay Abio</p>
+        </main>
+    </header>
+    <nav>
+        <h2>Activity Links</h2>
+        <a href="https://shii20.github.io/guessing-game/" target="_blank" rel="noopener noreferrer" aria-label="Open Guess the Secret Word Game in a new tab">Guess the Secret Word Game</a>
+        <a href="browser_dashboard.html" target="_blank" rel="noopener noreferrer" aria-label="Open Browser Environment Dashboard in a new tab">Browser Environment Dashboard</a>
+    </nav>
+</body>
+</html>
