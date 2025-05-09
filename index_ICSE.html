@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Canvas Circles</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    canvas {
+      border: 3px solid #3e0860;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+      background-color: #b19cd9;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(90, 13, 138, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Interactive Circle Editor</h2>
+  <p><strong>Complete Name:</strong> Shejay B. Barranda</p>
+  <p><strong>Sex:</strong> Male</p>
+  <p><strong>Address:</strong> Manamoc, Lagonoy, Camarines Sur</p>
+  <p><strong>Course, Year, and Section:</strong> BS Information Technology, 2nd Year, Section B</p>
+  <p><strong>Name of School:</strong> Partido State University</p>
+  <p><strong>Semester and Academic Year:</strong> 2nd Semester, 2024-2025</p>
+  <p><strong>Course Code and Title:</strong> C604 - Event Driven Programming</p>
+  <p><strong>Name of Subject Instructor:</strong> Prof. Arjay Abio</p>
+</header>
+
+<canvas id="canvas" width="600" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  let circles = [];
+  let selectedCircle = null;
+  let isDragging = false;
+
+  const DEFAULT_RADIUS = 20;
+  const MIN_RADIUS = 5;
+
+  function drawCircles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    circles.forEach(circle => {
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+      ctx.fillStyle = circle === selectedCircle ? '#90168e' : '#5a0d8a';
+      ctx.fill();
+    });
+  }
+
+  function getCircleAt(x, y) {
+    return circles.find(c =>
+      Math.hypot(c.x - x, c.y - y) <= c.radius
+    );
+  }
+
+  // Mouse down
+  canvas.addEventListener("mousedown", function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const clicked = getCircleAt(x, y);
+
+    if (clicked) {
+      selectedCircle = clicked;
+      isDragging = true;
+    } else {
+      // Add new circle
+      circles.push({ x, y, radius: DEFAULT_RADIUS });
+      selectedCircle = null;
+    }
+
+    drawCircles();
+  });
+
+  // Mouse move
+  canvas.addEventListener("mousemove", function(e) {
+    if (isDragging && selectedCircle) {
+      const rect = canvas.getBoundingClientRect();
+      selectedCircle.x = e.clientX - rect.left;
+      selectedCircle.y = e.clientY - rect.top;
+      drawCircles();
+    }
+  });
+
+  // Mouse up
+  canvas.addEventListener("mouseup", function() {
+    isDragging = false;
+  });
+
+  // Mouse wheel for resizing
+  canvas.addEventListener("wheel", function(e) {
+    if (selectedCircle) {
+      e.preventDefault();
+      selectedCircle.radius += e.deltaY < 0 ? 2 : -2;
+      if (selectedCircle.radius < MIN_RADIUS) {
+        selectedCircle.radius = MIN_RADIUS;
+      }
+      drawCircles();
+    }
+  });
+
+  // Delete key to remove selected circle
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Delete" && selectedCircle) {
+      circles = circles.filter(c => c !== selectedCircle);
+      selectedCircle = null;
+      drawCircles();
+    }
+  });
+
+  // Initial draw
+  drawCircles();
+</script>
+
+</body>
+</html>
